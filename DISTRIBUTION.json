@@ -75,7 +75,7 @@
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
     "r1 gameplay NOT RUN on any emulator",
-    "Ports the cheat's behaviour as it is, including the zoom-in replay the tester calls a spasm; which request bit replays the zoom-in is not found yet",
+    "Ports the cheat's behaviour as it is, including the target crosshair's zoom-in replay the tester calls a spasm; what restarts that animation is not found yet",
     "The author of the \"Lock-on Target V1\" cheat is unknown, so it is not credited yet",
     "Holding both this mod and the Lock-on Target V1 cheat is redundant"
   ],

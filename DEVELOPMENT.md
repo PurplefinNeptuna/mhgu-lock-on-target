@@ -5,8 +5,8 @@
 r1 DEVELOPMENT (2026-11-06), candidate at `build/lock-on-target/candidates/r1/delivery/`, a
 Forge port of the "Lock-on Target V1" cheat. One pre-only entry hook on the hunter's
 target-camera tap logic writes the cheat's 5.0 into the local hunter's tap window right before
-the game reads it. Built, host-tested and statically verified; gameplay NOT RUN. The zoom-in
-replay the tester calls a spasm is ported as it is; see Open items.
+the game reads it. Built, host-tested and statically verified; gameplay NOT RUN. The target
+crosshair's zoom-in replay, the tester's "spasm", is ported as it is; see Open items.
 
 Tester's words, which r1 and later versions build to: "when locked in (r3) camera point to
 monster like L button but forever, r3 will cycle the lock target. also without patching, the
@@ -50,9 +50,10 @@ refuses to install without it. It lives for the process, so the detour keeps onl
 
 ## Open items
 
-- The spasm: find what replays the zoom-in. Candidates are the request bits 0, 24 and 6 at
-  hunter `+0x1434`; their readers are inline and not found by the scans in the notes. Next
-  step: read `uQuestCamera` (vtable `0x1730d0c`, `mTargetPos` `+0x60`) update code top-down.
+- The spasm is the target crosshair (HUD), not the camera: its zoom-in animation replays while
+  locked. Find the crosshair's GUI object and what restarts its animation; the request bits 0,
+  24 and 6 at hunter `+0x1434` are the likely trigger. Lead: `cUIOCPanelTargetCamera` (DTI size
+  `0x58`, vtable `0x177a4d0`), possibly only the options panel.
 - Why the cheat had no visible effect on MHGURecomp while the tap window read back held.
 - The cheat's author, for credits.
 

@@ -6,7 +6,7 @@ Remove or turn off the "Lock-on Target V1" cheat first, so only the mod holds th
 2. Press your target-camera button (R3 in the tester's settings) to lock on.
 3. Check that the camera stays on the monster without pressing again, as the cheat did.
 4. Press the button again to cycle to another large monster.
-5. Watch for the zoom-in jerk ("spasm"). r1 is expected to still show it; say how often.
+5. Watch the target crosshair for its zoom-in animation replaying ("spasm"). r1 is expected to still show it; say how often.
 
 Send the emulator's log. The lines that matter:
 

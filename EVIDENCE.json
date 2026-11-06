@@ -12,5 +12,5 @@
     "values": "log 2: 0x16a60060 (hunter), log 4: 0xc17337c (hunter+0x145C), log 5 alternating 0x40933333, 0x4093332d, 0 and rarely 0x40a00000",
     "tester": "\"yes its on and does not work\""
   },
-  "tester_requirement_2026_11_06": "\"when locked in (r3) camera point to monster like L button but forever, r3 will cycle the lock target. also without patching, the targetting have spasm because there are animation like targeting zoomin\"; \"number 2 and 3 follow the ingame camera lock and button settings\"; \"the cheat codes works like repeatedly pressing L button forever\""
+  "tester_requirement_2026_11_06": "\"when locked in (r3) camera point to monster like L button but forever, r3 will cycle the lock target. also without patching, the targetting have spasm because there are animation like targeting zoomin\"; \"number 2 and 3 follow the ingame camera lock and button settings\"; \"the cheat codes works like repeatedly pressing L button forever\"; \"not camera zoom in, but cross-hair zoom in spasm\""
 }

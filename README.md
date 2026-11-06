@@ -39,5 +39,5 @@ the package or delete its folder from the emulator's mod directory.
 
 ## Compatibility and known issues
 
-The camera can jerk while locked, because the game replays its zoom-in on the
-target. The cheat does the same.
+While locked, the target crosshair keeps replaying its zoom-in animation, so
+it twitches. The cheat does the same.
