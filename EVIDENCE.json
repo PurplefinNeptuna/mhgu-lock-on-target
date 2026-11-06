@@ -40,8 +40,8 @@
     "installed_matches": true,
     "cheat": "Lock-on Target V1 disabled in Eden (DisabledAddOns size=1)",
     "log": "MHGURecomp recomplog.txt: \"[forge] [INFO] [lock-on-target] r2 loaded\" and \"[forge] [INFO] [lock-on-target] expiring the local hunter's target window\". Eden: info lines hidden by Forge level error.",
-    "tester": "\"ok, work for both eden and recomp\"",
+    "tester": "\"ok, work for both eden and recomp\"; \"its not spazzing at all\"",
     "itemized": false,
-    "not_reported": "Target cycling, the crosshair zoom-in replay."
+    "not_reported": "Target cycling."
   }
 }

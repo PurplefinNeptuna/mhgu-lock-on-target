@@ -2,13 +2,12 @@
 
 ## Current state
 
-r2 DEVELOPMENT (2026-11-06), candidate at `build/lock-on-target/candidates/r2/delivery/`, a
+r2 READY_TO_DISTRIBUTE (2026-11-06), unpublished, release at `build/lock-on-target/releases/r2/`, a
 Forge port of the "Lock-on Target V1" cheat. One pre-only entry hook on the hunter's
 target-camera tap logic sets the local hunter's tap window to 0.001 right before the game reads
 it, so the window runs out in that call and the game raises its single-tap target request every
-frame. Accepted on Eden and MHGURecomp 0.14.3 ("ok, work for both eden and recomp"),
-unitemized. Whether the target crosshair's zoom-in still replays, the tester's "spasm", was not
-reported; see Open items.
+frame. Accepted on Eden and MHGURecomp 0.14.3 ("ok, work for both eden and recomp"), with no
+crosshair twitch ("its not spazzing at all"); target cycling was not itemized.
 
 Tester's words, which r1 and later versions build to: "when locked in (r3) camera point to
 monster like L button but forever, r3 will cycle the lock target. also without patching, the
@@ -54,11 +53,11 @@ refuses to install without it. It lives for the process, so the detour keeps onl
 
 ## Open items
 
-- The spasm is the target crosshair (HUD), not the camera: its zoom-in animation replays while
-  locked. Find the crosshair's GUI object and what restarts its animation; the request bits 0,
-  24 and 6 at hunter `+0x1434` are the likely trigger. Lead: `cUIOCPanelTargetCamera` (DTI size
-  `0x58`, vtable `0x177a4d0`), possibly only the options panel.
 - The cheat's author, for credits.
+- Target cycling is untested as an item, and Ryujinx and Switch hardware have no run.
+
+The cheat's crosshair twitch (its zoom-in replaying) came from the target request firing about
+12 times a second on Eden; fired every frame, the crosshair does not twitch.
 
 ## Do not
 
