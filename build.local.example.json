@@ -1,0 +1,8 @@
+{
+  "rust_bin": "/path/to/nightly-2026-10-02/bin",
+  "cargo_home": "/path/to/private-cargo-home",
+  "cargo_forge": "/path/to/pinned/cargo-forge",
+  "devkitarm": "/path/to/devkitARM",
+  "python": "/path/to/python",
+  "inputs": "/path/to/copied-native-inputs"
+}

@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "mod": "lock-on-target",
+  "status": "DEVELOPMENT",
+  "runtime_platform": "switch",
+  "reason": "r1 is a Forge port of the \"Lock-on Target V1\" cheat: one entry hook on the hunter's target-camera tap logic writes the cheat's 5.0 into the local hunter's tap window right before the game reads it.",
+  "publication": {
+    "published": false,
+    "url": null,
+    "date": null
+  },
+  "version": "r1",
+  "package_name": "lock-on-target",
+  "archive": "lock-on-target-r1-candidate.zip",
+  "candidate": "build/lock-on-target/candidates/r1/delivery",
+  "candidate_builder": "scripts/build.py",
+  "runtime_test": "r1 NOT RUN.",
+  "runtime_active": true,
+  "notices": [
+    "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
+    "mods/lock-on-target/LICENSE",
+    "mods/lock-on-target/vendor/forge-rs/LICENSE",
+    "mods/lock-on-target/vendor/libnx/LICENSE-MIT",
+    "mods/lock-on-target/licenses/FORGE-MIT.txt",
+    "mods/lock-on-target/vendor/crates/log-0.4.34/LICENSE-MIT",
+    "mods/lock-on-target/licenses/RUST-MIT.txt",
+    "mods/lock-on-target/licenses/UNICODE-3.0.txt",
+    "mods/lock-on-target/licenses/COMPILER_BUILTINS.txt"
+  ],
+  "gamebanana": {
+    "ai_code": {
+      "used": true,
+      "software": [
+        {
+          "name": "Claude Code",
+          "url": "https://claude.com/claude-code"
+        }
+      ],
+      "scope": "Researching the game code, and writing and testing this mod's code and documentation."
+    },
+    "ai_assets": [],
+    "credits": [
+      {
+        "name": "MHGU Forge",
+        "author": "Fexty",
+        "url": "https://github.com/Fexty12573/forge",
+        "scope": "Fexty's MHGU fork of Jeffi's original Forge. Loader API and native hooks."
+      },
+      {
+        "name": "Original Forge",
+        "author": "Jeffi and the Skyline Project",
+        "url": "https://github.com/jeffi6375/forge",
+        "scope": "Original Forge code and API ancestry."
+      },
+      {
+        "name": "forge-rs",
+        "author": "Fexty",
+        "url": "https://github.com/Fexty12573/forge-rs",
+        "scope": "Rust runtime, callbacks, patch and hook bindings."
+      },
+      {
+        "name": "libnx",
+        "author": "Hydrosphere Developers",
+        "url": "https://github.com/switchbrew/libnx",
+        "scope": "MIT-licensed ARM32 syscall wrappers."
+      },
+      {
+        "name": "Monster Hunter Generations Ultimate",
+        "author": "Capcom",
+        "url": "https://www.monsterhunter.com/",
+        "scope": "Native hunter and target-camera code in the user supplied game; no game files are shipped."
+      }
+    ]
+  },
+  "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
+  "limitations": [
+    "r1 gameplay NOT RUN on any emulator",
+    "Ports the cheat's behaviour as it is, including the zoom-in replay the tester calls a spasm; which request bit replays the zoom-in is not found yet",
+    "The author of the \"Lock-on Target V1\" cheat is unknown, so it is not credited yet",
+    "Holding both this mod and the Lock-on Target V1 cheat is redundant"
+  ],
+  "readme": "mods/lock-on-target/README.md",
+  "support": {
+    "DEVELOPMENT.md": "mods/lock-on-target/DEVELOPMENT.md",
+    "EVIDENCE.json": "mods/lock-on-target/EVIDENCE.json"
+  },
+  "evidence": {
+    "static": [
+      "mods/lock-on-target/EVIDENCE.json"
+    ],
+    "manual": [
+      "mods/lock-on-target/EVIDENCE.json"
+    ],
+    "static_summary": "r1: pinned toolchain build, 14 core host tests and verify (4 game windows, imports, GE audit) passed.",
+    "manual_summary": "r1 NOT RUN."
+  },
+  "dependencies": [
+    {
+      "name": "Forge",
+      "version": "1.5.1",
+      "scope": "External unmodified upstream Switch loader; not bundled."
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "static_r1": {
+    "date": "2026-11-06",
+    "nro_sha256": "3c9bf04b495700a09309020542dff65fc3b0066ee8f004f8328ec7863f375cbf",
+    "core_host_tests": 14,
+    "verify": "4 game windows against the pinned main, imports, GE audit, exports, payload inventory",
+    "runtime_test": "NOT RUN"
+  },
+  "cheat_probe_2026_11_06": {
+    "emulator": "MHGURecomp 0.14.3",
+    "what": "Read-only log cheat beside Lock-on Target V1, logging while R3 (the tester's target button) was held",
+    "values": "log 2: 0x16a60060 (hunter), log 4: 0xc17337c (hunter+0x145C), log 5 alternating 0x40933333, 0x4093332d, 0 and rarely 0x40a00000",
+    "tester": "\"yes its on and does not work\""
+  },
+  "tester_requirement_2026_11_06": "\"when locked in (r3) camera point to monster like L button but forever, r3 will cycle the lock target. also without patching, the targetting have spasm because there are animation like targeting zoomin\"; \"number 2 and 3 follow the ingame camera lock and button settings\"; \"the cheat codes works like repeatedly pressing L button forever\""
+}
