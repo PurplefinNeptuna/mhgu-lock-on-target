@@ -21,7 +21,7 @@
     "installed_nro_sha256": "3c9bf04b495700a09309020542dff65fc3b0066ee8f004f8328ec7863f375cbf",
     "installed_matches": true,
     "cheat": "Lock-on Target V1 disabled in Eden (DisabledAddOns size=1); not present in the MHGURecomp cheats run",
-    "log": "MHGURecomp: \"[forge] [INFO] [lock-on-target] r1 loaded\". Eden: Forge log level error hides info lines; no lock-on-target error line.",
+    "log": "MHGURecomp log.txt: \"[forge] [INFO] [lock-on-target] r1 loaded\" and, in a quest, \"[forge] [INFO] [lock-on-target] holding the local hunter's target window\". Eden: Forge log level error hides info lines; no lock-on-target error line.",
     "tester": "\"tested on eden and recomp, not working\""
   },
   "static_r2": {
