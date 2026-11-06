@@ -12,5 +12,23 @@
     "values": "log 2: 0x16a60060 (hunter), log 4: 0xc17337c (hunter+0x145C), log 5 alternating 0x40933333, 0x4093332d, 0 and rarely 0x40a00000",
     "tester": "\"yes its on and does not work\""
   },
-  "tester_requirement_2026_11_06": "\"when locked in (r3) camera point to monster like L button but forever, r3 will cycle the lock target. also without patching, the targetting have spasm because there are animation like targeting zoomin\"; \"number 2 and 3 follow the ingame camera lock and button settings\"; \"the cheat codes works like repeatedly pressing L button forever\"; \"not camera zoom in, but cross-hair zoom in spasm\""
+  "tester_requirement_2026_11_06": "\"when locked in (r3) camera point to monster like L button but forever, r3 will cycle the lock target. also without patching, the targetting have spasm because there are animation like targeting zoomin\"; \"number 2 and 3 follow the ingame camera lock and button settings\"; \"the cheat codes works like repeatedly pressing L button forever\"; \"not camera zoom in, but cross-hair zoom in spasm\"",
+  "runtime_r1_2026_11_06": {
+    "emulators": [
+      "Eden",
+      "MHGURecomp 0.14.3"
+    ],
+    "installed_nro_sha256": "3c9bf04b495700a09309020542dff65fc3b0066ee8f004f8328ec7863f375cbf",
+    "installed_matches": true,
+    "cheat": "Lock-on Target V1 disabled in Eden (DisabledAddOns size=1); not present in the MHGURecomp cheats run",
+    "log": "MHGURecomp: \"[forge] [INFO] [lock-on-target] r1 loaded\". Eden: Forge log level error hides info lines; no lock-on-target error line.",
+    "tester": "\"tested on eden and recomp, not working\""
+  },
+  "static_r2": {
+    "date": "2026-11-06",
+    "nro_sha256": "ae34b8adbe58804b501d7e8ef420354a264e81d01e5ca8ae40b0c461950bd775",
+    "core_host_tests": 14,
+    "verify": "4 game windows, imports, GE audit, exports, payload inventory",
+    "runtime_test": "NOT RUN"
+  }
 }

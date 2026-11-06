@@ -11,8 +11,13 @@ fn only_the_local_hunter_is_held() {
 }
 
 #[test]
-fn the_held_value_is_the_cheats_five() {
-    assert_eq!(f32::from_bits(HELD_TIMER), 5.0);
+fn the_window_runs_out_within_one_frame() {
+    let timer = f32::from_bits(EXPIRING_TIMER);
+    assert!(timer.is_normal() && timer > 0.0, "a flushed or zero value skips the countdown");
+    // Frame times in 1/60 s: 240 fps is 0.25, Recomp's 150 fps 0.4, 30 fps 2.0.
+    for frame in [0.25f32, 0.4, 1.0, 2.0] {
+        assert!(timer - frame <= 0.0, "{frame}");
+    }
 }
 
 #[test]

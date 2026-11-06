@@ -14,20 +14,23 @@ pub const CHAINS: [bool; HOOK_COUNT] = [true];
 
 /// `(hunter)`, main+0x27e970. Its only caller is main+0x2a7b74 in the hunter update main+0x2a79cc,
 /// which passes the hunter in r0. It counts the tap window at `TAP_TIMER` down and turns presses
-/// of the target-camera button into request bits at hunter+0x1434: while the window is open, a
-/// press raises the request a single tap raises when the window runs out.
+/// of the target-camera button into request bits at hunter+0x1434. When the window runs out it
+/// raises the single-tap target request, as one press of the target-camera button does.
 pub const TAP_LOGIC_OFFSET: u32 = 0x27e970;
 
-/// f32 tap window, in frames. A press with the window closed opens it at 12.0.
+/// f32 tap window in 1/60 s, counted down by `0x53aa84` by the hunter's frame time (+0x1c). A
+/// press with the window closed opens it at 12.0.
 pub const TAP_TIMER: u32 = 0x145c;
-/// 5.0f, the value the "Lock-on Target V1" cheat keeps there. Written as bits so the plugin never
-/// needs a float register.
-pub const HELD_TIMER: u32 = 0x40a0_0000;
+/// 0.001f: positive, so the tap logic takes its countdown path, and below any frame time, so the
+/// window runs out in that same call and raises the target request every frame. The cheat's 5.0
+/// only runs out because Eden's cheat engine rewrites it 12 times a second. Written as bits so the
+/// plugin never needs a float register.
+pub const EXPIRING_TIMER: u32 = 0x3a83_126f;
 /// `sFestaUnit + 0x58`: the local player's hunter, the chain the cheat and Pixel Cheats' "Hunter
 /// Speed" both read.
 pub const LOCAL_HUNTER: u32 = 0x58;
 
-/// Hold the window open only for the local hunter; every other hunter runs unchanged.
+/// Run the window out only for the local hunter; every other hunter runs unchanged.
 pub const fn holds(hunter: u32, local_hunter: u32) -> bool {
     hunter != 0 && hunter == local_hunter
 }

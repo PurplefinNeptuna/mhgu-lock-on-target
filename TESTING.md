@@ -1,4 +1,4 @@
-# Testing Lock-on Target r1
+# Testing Lock-on Target r2
 
 Remove or turn off the "Lock-on Target V1" cheat first, so only the mod holds the window.
 
@@ -6,13 +6,13 @@ Remove or turn off the "Lock-on Target V1" cheat first, so only the mod holds th
 2. Press your target-camera button (R3 in the tester's settings) to lock on.
 3. Check that the camera stays on the monster without pressing again, as the cheat did.
 4. Press the button again to cycle to another large monster.
-5. Watch the target crosshair for its zoom-in animation replaying ("spasm"). r1 is expected to still show it; say how often.
+5. Watch the target crosshair for its zoom-in animation replaying ("spasm"). Say whether it replays, and how often.
 
-Send the emulator's log. The lines that matter:
+Send the emulator's log. Eden's Forge config (`level = error`) hides the info lines below; MHGURecomp shows them. The lines that matter:
 
 | Line | Meaning |
 | --- | --- |
-| `[lock-on-target] r1 loaded` | The hook is installed |
-| `[lock-on-target] holding the local hunter's target window` | The hook reached the local hunter at least once (logged once per start) |
+| `[lock-on-target] r2 loaded` | The hook is installed |
+| `[lock-on-target] expiring the local hunter's target window` | The hook reached the local hunter at least once (logged once per start) |
 | `[lock-on-target] Inactive: ...` | Not installed; the rest of the line says why |
 | `[lock-on-target] ERROR: hook rollback failed; restart required` | Restart the game |

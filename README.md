@@ -12,7 +12,7 @@ cheat does, as a Forge plugin.
 ## Installation
 
 1. Close the emulator.
-2. Extract `lock-on-target-r1-candidate.zip`.
+2. Extract `lock-on-target-r2-candidate.zip`.
 3. Copy the whole `lock-on-target` folder into your emulator's MHGU mod directory:
    - Eden: `~/.local/share/eden/load/0100770008DD8000/`
    - Ryujinx: `mods/contents/0100770008dd8000/` inside its data directory.
@@ -39,5 +39,5 @@ the package or delete its folder from the emulator's mod directory.
 
 ## Compatibility and known issues
 
-While locked, the target crosshair keeps replaying its zoom-in animation, so
-it twitches. The cheat does the same.
+The target crosshair may keep replaying its zoom-in animation while locked,
+as it does with the cheat.

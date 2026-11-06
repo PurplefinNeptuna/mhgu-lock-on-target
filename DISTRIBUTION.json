@@ -3,18 +3,18 @@
   "mod": "lock-on-target",
   "status": "DEVELOPMENT",
   "runtime_platform": "switch",
-  "reason": "r1 is a Forge port of the \"Lock-on Target V1\" cheat: one entry hook on the hunter's target-camera tap logic writes the cheat's 5.0 into the local hunter's tap window right before the game reads it.",
+  "reason": "r2 lets the local hunter's target-camera tap window run out every frame, so the game raises its target request every frame. r1 held it open at the cheat's 5.0, which never runs out when written every frame.",
   "publication": {
     "published": false,
     "url": null,
     "date": null
   },
-  "version": "r1",
+  "version": "r2",
   "package_name": "lock-on-target",
-  "archive": "lock-on-target-r1-candidate.zip",
-  "candidate": "build/lock-on-target/candidates/r1/delivery",
+  "archive": "lock-on-target-r2-candidate.zip",
+  "candidate": "build/lock-on-target/candidates/r2/delivery",
   "candidate_builder": "scripts/build.py",
-  "runtime_test": "r1 NOT RUN.",
+  "runtime_test": "r2 NOT RUN. r1 on Eden and MHGURecomp: \"tested on eden and recomp, not working\"; MHGURecomp logged \"[lock-on-target] r1 loaded\".",
   "runtime_active": true,
   "notices": [
     "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
@@ -74,8 +74,8 @@
   },
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
-    "r1 gameplay NOT RUN on any emulator",
-    "Ports the cheat's behaviour as it is, including the target crosshair's zoom-in replay the tester calls a spasm; what restarts that animation is not found yet",
+    "r2 gameplay NOT RUN on any emulator; r1 loaded and had no effect on Eden and MHGURecomp",
+    "Fires the game's target request every frame; whether the target crosshair's zoom-in still replays (the tester's spasm) is untested",
     "The author of the \"Lock-on Target V1\" cheat is unknown, so it is not credited yet",
     "Holding both this mod and the Lock-on Target V1 cheat is redundant"
   ],
@@ -91,8 +91,8 @@
     "manual": [
       "mods/lock-on-target/EVIDENCE.json"
     ],
-    "static_summary": "r1: pinned toolchain build, 14 core host tests and verify (4 game windows, imports, GE audit) passed.",
-    "manual_summary": "r1 NOT RUN."
+    "static_summary": "r2: pinned toolchain build, 14 core host tests and verify (4 game windows, imports, GE audit) passed.",
+    "manual_summary": "r2 NOT RUN. r1 loaded on MHGURecomp and had no effect on Eden or MHGURecomp."
   },
   "dependencies": [
     {

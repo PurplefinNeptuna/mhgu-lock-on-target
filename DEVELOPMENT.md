@@ -2,11 +2,12 @@
 
 ## Current state
 
-r1 DEVELOPMENT (2026-11-06), candidate at `build/lock-on-target/candidates/r1/delivery/`, a
+r2 DEVELOPMENT (2026-11-06), candidate at `build/lock-on-target/candidates/r2/delivery/`, a
 Forge port of the "Lock-on Target V1" cheat. One pre-only entry hook on the hunter's
-target-camera tap logic writes the cheat's 5.0 into the local hunter's tap window right before
-the game reads it. Built, host-tested and statically verified; gameplay NOT RUN. The target
-crosshair's zoom-in replay, the tester's "spasm", is ported as it is; see Open items.
+target-camera tap logic sets the local hunter's tap window to 0.001 right before the game reads
+it, so the window runs out in that call and the game raises its single-tap target request every
+frame. Built, host-tested and statically verified; gameplay NOT RUN. Whether the target
+crosshair's zoom-in still replays, the tester's "spasm", is untested; see Open items.
 
 Tester's words, which r1 and later versions build to: "when locked in (r3) camera point to
 monster like L button but forever, r3 will cycle the lock target. also without patching, the
@@ -30,6 +31,8 @@ NSO. Research notes, including the searches that found no camera-side reader, ar
 | Request bitset | hunter `+0x1434` | Bytes. `0x285ea0` sets bit n, `0x285ec4` clears, `0x285ee8` tests (no `b`/`bl` caller). The tap logic sets bits 0, 24 (unless session `0x188ca48` `+0x6f` == 1) and 6 |
 | Request clears | bits 0 and 24 at `0x2a7dd8`/`0x2a7de4` when `0x2e0b10(hunter)` == 1; bit 6 in `0x27eccc` | Bytes |
 | Window cleared each frame | when `0x18e50([0x184d750])` != 1 | Bytes; meaning of `0x18e50` unread |
+| Countdown `(hunter, &timer, step)` | `0x53aa84` | Bytes. `timer -= hunter[+0x1c] * step`, frame time in 1/60 s (0.4 at 150 fps); returns 1 and stores the clamp once it reaches 0 |
+| Why the cheat works on Eden | Eden's cheat engine | `CHEAT_ENGINE_NS = 1000000000 / 12` in Eden's `cheat_engine.cpp`: 5.0 drains between writes at 60 fps, so the window keeps running out and fires the target request. Written every frame (MHGURecomp), it never runs out |
 
 ## Hook
 
@@ -38,7 +41,7 @@ NSO. Research notes, including the searches that found no camera-side reader, ar
 | Target | `main+0x27e970`, entry, ARM |
 | Displaced words | `e92d48f0` `push {r4-r7, r11, lr}`, `e1a04000` `mov r4, r0`; both position-independent |
 | Arguments / result | r0 hunter; no result read by the caller (`0x2a7b78` reloads r0) |
-| Detour | If the hunter equals `[sFestaUnit+0x58]`, store `0x40a00000` at hunter `+0x145c`; then call the original once with r0 unchanged |
+| Detour | If the hunter equals `[sFestaUnit+0x58]`, store `0x3a83126f` (0.001) at hunter `+0x145c`; then call the original once with r0 unchanged |
 | Chaining | Pre-only, so the entry accepts another plugin's Forge hook (`e51ff004` plus literal); every later word stays exact |
 | GE | No `SEL`, `MRS`, `MSR` or parallel add/subtract in `0x27e970`'s 568 bytes or in the emitted NRO (verify) |
 | Windows | `0x27e970`, `0x27e9b0`, `0x27e9f0` (through the timer writes) and the GNU build-ID note `0x172e52c` |
@@ -54,10 +57,10 @@ refuses to install without it. It lives for the process, so the detour keeps onl
   locked. Find the crosshair's GUI object and what restarts its animation; the request bits 0,
   24 and 6 at hunter `+0x1434` are the likely trigger. Lead: `cUIOCPanelTargetCamera` (DTI size
   `0x58`, vtable `0x177a4d0`), possibly only the options panel.
-- Why the cheat had no visible effect on MHGURecomp while the tap window read back held.
 - The cheat's author, for credits.
 
 ## Do not
 
+- Hold the tap window open (write 5.0 every frame): it never runs out, so no target request fires.
 - Hold the window for every hunter: the hook also runs for other players' hunters.
 - Replace the game's target choice, cycling or button mapping: the tester asked for the game's own.

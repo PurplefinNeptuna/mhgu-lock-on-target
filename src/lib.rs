@@ -1,8 +1,8 @@
-//! Lock-on Target: keeps the local hunter's target-camera tap window open, so the target camera
-//! stays on the monster the game targets, and the target-camera button cycles targets as the game
-//! sets it up. A Forge port of the "Lock-on Target V1" cheat: it writes the cheat's 5.0 into the
-//! window right before the game's tap logic reads it, instead of whenever a cheat engine runs. One
-//! ordinary Forge hook, installed before the game starts. No settings, so no Plugin UI panel.
+//! Lock-on Target: lets the local hunter's target-camera tap window run out every frame, so the
+//! game raises its target request every frame and the camera stays on the monster it targets; the
+//! target-camera button cycles targets as the game sets it up. A Forge port of the "Lock-on Target
+//! V1" cheat, whose window runs out only between its 12-per-second writes on Eden. One ordinary
+//! Forge hook, installed before the game starts. No settings, so no Plugin UI panel.
 #![no_std]
 mod hooks;
 mod platform;
@@ -14,7 +14,7 @@ use lock_on_target_core::*;
 /// The sFestaUnit singleton once the hook is live; zero leaves the detour passing straight through.
 static UNIT: AtomicU32 = AtomicU32::new(0);
 static STARTED: AtomicBool = AtomicBool::new(false);
-/// Set by the detour the first time it holds the window; reported once from `forge_onUpdate`.
+/// Set by the detour the first time it runs the window out; reported once from `forge_onUpdate`.
 static HELD: AtomicBool = AtomicBool::new(false);
 
 /// `(hunter)` main+0x27e970. Writes the window for the local hunter, then runs the game's tap logic
@@ -23,7 +23,7 @@ extern "C" fn tap_logic(hunter: u32) {
     let unit = UNIT.load(Ordering::Acquire);
     // sFestaUnit lives for the whole process; its local-hunter slot is zero outside a quest.
     if unit != 0 && holds(hunter, platform::word(unit + LOCAL_HUNTER)) {
-        platform::write_word(hunter + TAP_TIMER, HELD_TIMER);
+        platform::write_word(hunter + TAP_TIMER, EXPIRING_TIMER);
         HELD.store(true, Ordering::Relaxed);
     }
     let original = hooks::original(TAP_LOGIC);
@@ -96,6 +96,6 @@ pub extern "C" fn forge_onInit() {
 pub extern "C" fn forge_onUpdate(_delta: f32) {
     static REPORTED: AtomicBool = AtomicBool::new(false);
     if HELD.load(Ordering::Relaxed) && !REPORTED.swap(true, Ordering::Relaxed) {
-        log::info!("[lock-on-target] holding the local hunter's target window");
+        log::info!("[lock-on-target] expiring the local hunter's target window");
     }
 }
