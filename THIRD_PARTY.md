@@ -33,8 +33,11 @@ nightly Rust (`rust-toolchain.toml`, `dependencies.lock.json`).
 ## Ported behaviour
 
 The mod reproduces the "Lock-on Target V1" Atmosphere cheat for build FB08F1D20FD1204F, which
-writes 5.0 to `[[sFestaUnit]+0x58]+0x145C` while `[main+0x184DDC8]` is nonzero. Its author and
-licence are unknown; no cheat text is copied or shipped, only the field and value it writes.
+writes 5.0 to `[[sFestaUnit]+0x58]+0x145C` while `[main+0x184DDC8]` is nonzero. Source: the
+"Camera Lock-on V1" entry of the MHGU Modding wiki's Cheat Codes page
+(https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes), which says it was found in
+https://www.youtube.com/live/cJER9XHHHoU and names no author. No licence is stated. No cheat
+text is copied or shipped; the mod writes a different value (0.001) to the same field.
 
 ## Research inputs
 

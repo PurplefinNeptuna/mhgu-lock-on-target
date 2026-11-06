@@ -63,6 +63,18 @@
         "scope": "MIT-licensed ARM32 syscall wrappers."
       },
       {
+        "name": "Lock-on Target V1 cheat",
+        "author": "an unnamed author",
+        "url": "https://www.youtube.com/live/cJER9XHHHoU",
+        "scope": "The cheat this mod ports. The MHGU Modding wiki lists it as found in this stream and names no author."
+      },
+      {
+        "name": "MHGU Modding wiki: Cheat Codes",
+        "author": "RTHKKona",
+        "url": "https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes",
+        "scope": "Lists the Lock-on Target V1 cheat and where it was found."
+      },
+      {
         "name": "Monster Hunter Generations Ultimate",
         "author": "Capcom",
         "url": "https://www.monsterhunter.com/",
@@ -73,8 +85,8 @@
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
     "r2 accepted on Eden and MHGURecomp, unitemized for target cycling; Ryujinx and Switch hardware not run",
-    "The author of the \"Lock-on Target V1\" cheat is unknown, so it is not credited",
-    "Running both this mod and the Lock-on Target V1 cheat is redundant"
+    "Running both this mod and the Lock-on Target V1 cheat is redundant",
+    "The Lock-on Target V1 cheat's author is not named in its source, the MHGU Modding wiki"
   ],
   "readme": "mods/lock-on-target/README.md",
   "support": {

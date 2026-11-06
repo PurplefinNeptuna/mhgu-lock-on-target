@@ -53,7 +53,7 @@ refuses to install without it. It lives for the process, so the detour keeps onl
 
 ## Open items
 
-- The cheat's author, for credits.
+- The cheat's author: the MHGU Modding wiki lists only the stream it was found in.
 - Target cycling is untested as an item, and Ryujinx and Switch hardware have no run.
 
 The cheat's crosshair twitch (its zoom-in replaying) came from the target request firing about
