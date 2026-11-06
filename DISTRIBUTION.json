@@ -14,7 +14,7 @@
   "archive": "lock-on-target-r2-candidate.zip",
   "candidate": "build/lock-on-target/candidates/r2/delivery",
   "candidate_builder": "scripts/build.py",
-  "runtime_test": "r2 NOT RUN. r1 on Eden and MHGURecomp: \"tested on eden and recomp, not working\"; MHGURecomp logged \"[lock-on-target] r1 loaded\".",
+  "runtime_test": "r2 accepted on Eden and MHGURecomp 0.14.3: \"ok, work for both eden and recomp\". MHGURecomp logged \"r2 loaded\" and \"expiring the local hunter's target window\"; installed NRO matches on both.",
   "runtime_active": true,
   "notices": [
     "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
@@ -74,8 +74,8 @@
   },
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
-    "r2 gameplay NOT RUN on any emulator; r1 loaded and had no effect on Eden and MHGURecomp",
-    "Fires the game's target request every frame; whether the target crosshair's zoom-in still replays (the tester's spasm) is untested",
+    "r2 accepted on Eden and MHGURecomp, unitemized; Ryujinx and Switch hardware not run",
+    "Fires the game's target request every frame; the target crosshair's zoom-in replay (the tester's spasm) was not reported on for r2",
     "The author of the \"Lock-on Target V1\" cheat is unknown, so it is not credited yet",
     "Holding both this mod and the Lock-on Target V1 cheat is redundant"
   ],
@@ -92,7 +92,7 @@
       "mods/lock-on-target/EVIDENCE.json"
     ],
     "static_summary": "r2: pinned toolchain build, 14 core host tests and verify (4 game windows, imports, GE audit) passed.",
-    "manual_summary": "r2 NOT RUN. r1 loaded on MHGURecomp and had no effect on Eden or MHGURecomp."
+    "manual_summary": "r2 accepted on Eden and MHGURecomp 0.14.3: \"ok, work for both eden and recomp\"; see EVIDENCE.json."
   },
   "dependencies": [
     {

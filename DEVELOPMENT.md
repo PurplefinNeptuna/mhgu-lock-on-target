@@ -6,8 +6,9 @@ r2 DEVELOPMENT (2026-11-06), candidate at `build/lock-on-target/candidates/r2/de
 Forge port of the "Lock-on Target V1" cheat. One pre-only entry hook on the hunter's
 target-camera tap logic sets the local hunter's tap window to 0.001 right before the game reads
 it, so the window runs out in that call and the game raises its single-tap target request every
-frame. Built, host-tested and statically verified; gameplay NOT RUN. Whether the target
-crosshair's zoom-in still replays, the tester's "spasm", is untested; see Open items.
+frame. Accepted on Eden and MHGURecomp 0.14.3 ("ok, work for both eden and recomp"),
+unitemized. Whether the target crosshair's zoom-in still replays, the tester's "spasm", was not
+reported; see Open items.
 
 Tester's words, which r1 and later versions build to: "when locked in (r3) camera point to
 monster like L button but forever, r3 will cycle the lock target. also without patching, the
