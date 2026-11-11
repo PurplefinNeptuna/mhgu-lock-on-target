@@ -17,10 +17,10 @@
   "notices": [
     "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
     "mods/lock-on-target/LICENSE",
-    "mods/lock-on-target/vendor/forge-rs/LICENSE",
+    "mods/lock-on-target/licenses/FORGE-RS-MIT.txt",
     "mods/lock-on-target/vendor/libnx/LICENSE-MIT",
     "mods/lock-on-target/licenses/FORGE-MIT.txt",
-    "mods/lock-on-target/vendor/crates/log-0.4.34/LICENSE-MIT",
+    "mods/lock-on-target/licenses/LOG-MIT.txt",
     "mods/lock-on-target/licenses/RUST-MIT.txt",
     "mods/lock-on-target/licenses/UNICODE-3.0.txt",
     "mods/lock-on-target/licenses/COMPILER_BUILTINS.txt"
