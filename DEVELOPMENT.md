@@ -21,18 +21,7 @@ All addresses are main-relative on MHGU 1.4.0 (build FB08F1D20FD1204F), read fro
 NSO. Research notes, including the searches that found no camera-side reader, are in
 `work/lock-on-target/NOTES.md`.
 
-| Finding | Where | Evidence |
-| --- | --- | --- |
-| Local hunter | `sFestaUnit` (`main+0x2126f48` cell) `+0x58` | Same chain in the cheat and in Pixel Cheats' "Hunter Speed x5" (`+0x14b0`); matched a live hunter on MHGURecomp |
-| Tap logic `(hunter)` | `0x27e970`, 568 bytes | Bytes. One caller, `0x2a7b74` in the hunter update `0x2a79cc`, with `mov r0, r4` (the hunter). Nothing branches to `0x27e974` |
-| Tap window, f32 frames | hunter `+0x145c` | Bytes. Only float user is `0x27e970`: counts down via `0x53aa84(hunter, &timer, 1.0)`; a press with it closed sets 12.0 (`movt #0x4140`); cleared at `0x27e9f4`, `0x27ea04`, `0x27eaf0` |
-| Button words | hunter `+0x13f4` held, `+0x13f8` pressed, u16 | Bytes, masked with `0x65f8ec()` |
-| Hold time | hunter `+0x1450`, f32 | Bytes, compared with 1.0, 16.0 and 18.0 in `0x27e970` |
-| Request bitset | hunter `+0x1434` | Bytes. `0x285ea0` sets bit n, `0x285ec4` clears, `0x285ee8` tests (no `b`/`bl` caller). The tap logic sets bits 0, 24 (unless session `0x188ca48` `+0x6f` == 1) and 6 |
-| Request clears | bits 0 and 24 at `0x2a7dd8`/`0x2a7de4` when `0x2e0b10(hunter)` == 1; bit 6 in `0x27eccc` | Bytes |
-| Window cleared each frame | when `0x18e50([0x184d750])` != 1 | Bytes; meaning of `0x18e50` unread |
-| Countdown `(hunter, &timer, step)` | `0x53aa84` | Bytes. `timer -= hunter[+0x1c] * step`, frame time in 1/60 s (0.4 at 150 fps); returns 1 and stores the clamp once it reaches 0 |
-| Why the cheat works on Eden | Eden's cheat engine | `CHEAT_ENGINE_NS = 1000000000 / 12` in Eden's `cheat_engine.cpp`: 5.0 drains between writes at 60 fps, so the window keeps running out and fires the target request. Written every frame (MHGURecomp), it never runs out |
+The findings (local hunter, tap logic and its window, button words, hold time, request bitset and its clears, the countdown, and why the cheat works on Eden but not MHGURecomp) are in `.agents/skills/mhgu-understanding/references/input-and-actions.md`, section Target camera tap.
 
 ## Hook
 
