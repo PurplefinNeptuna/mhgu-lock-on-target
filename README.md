@@ -2,8 +2,9 @@
 
 Keeps the target camera turned to the monster the game targets, so you don't
 have to keep pressing the button. Tap your target camera button to turn the
-lock off, and tap it again to turn it back on. It does what clarkekoko's
-"Lock-on Target MHGU Recomp" cheat does, as a Forge plugin.
+lock off, and tap it again to turn it back on. The target reticle stays
+hidden while you play. It does what clarkekoko's "Lock-on Target MHGU Recomp"
+and "No Target Reticle" cheats do, as a Forge plugin.
 
 ## Requirements
 
@@ -13,7 +14,7 @@ lock off, and tap it again to turn it back on. It does what clarkekoko's
 ## Installation
 
 1. Close the emulator.
-2. Extract `lock-on-target-r3.zip`.
+2. Extract `lock-on-target-r4.zip`.
 3. Copy the whole `lock-on-target` folder into your emulator's MHGU mod directory:
    - Eden: `~/.local/share/eden/load/0100770008DD8000/`
    - Ryujinx: `mods/contents/0100770008dd8000/` inside its data directory.

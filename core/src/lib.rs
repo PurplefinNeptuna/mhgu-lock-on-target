@@ -28,7 +28,13 @@ pub const MAX_WORDS: usize = 22;
 /// raised, every frame. Bit 24 and the 12-frame tap window are never used.
 pub const TAP_LOGIC_OFFSET: u32 = 0x27e970;
 
-pub const PATCHES: [CodePatch; 3] = [
+/// The target reticle's panel update `0x61e95c(panel)`, state at panel+0x78. In states 1 and 2 it
+/// calls the reticle draw `0x61ecc0` (its only two callers) when `0x190d4([0x184d750])` == 1,
+/// the current camera's byte +0xa7c being set. With the lock on every frame that draw would run
+/// every frame, so the cheat compares with 2, which `0x190d4` never returns.
+pub const RETICLE_OFFSET: u32 = 0x61e95c;
+
+pub const PATCHES: [CodePatch; 5] = [
     // A hold of 1 to 18 frames runs the lock block instead of the window reopen at 0x27eb10.
     CodePatch { offset: 0x27e9d8, original: &[0xda00_004c], patched: &[] },
     // After a long hold (request bit 6, flag cleared to 0), skip the window reopen at 0x27eb4c
@@ -53,4 +59,8 @@ pub const PATCHES: [CodePatch; 3] = [
             // literal: the GOT slot 0x1838d90 that holds &sFestaCamera, relative to 0x27eab0
         ],
     },
+    // Reticle, state 2: `cmp r0, #1` -> `cmp r0, #2`, so it takes the other path at 0x61ea40.
+    CodePatch { offset: 0x61e9e0, original: &[0xe350_0001], patched: &[] },
+    // Reticle, state 1: the same compare, so `popne` returns before the draw.
+    CodePatch { offset: 0x61ea28, original: &[0xe350_0001], patched: &[] },
 ];

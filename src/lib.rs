@@ -1,6 +1,6 @@
 //! Lock-on Target: keeps the target camera on the monster the game targets, and a tap of the
 //! target-camera button turns that on or off. A Forge port of clarkekoko's "Lock-on Target MHGU
-//! Recomp" cheat: three code patches in the hunter's tap logic, written before the game starts.
+//! Recomp" cheat and its No Target Reticle part: five code patches, written before the game starts.
 //! No settings, so no Plugin UI panel.
 #![no_std]
 mod patches;

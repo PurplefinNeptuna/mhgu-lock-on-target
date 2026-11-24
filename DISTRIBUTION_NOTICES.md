@@ -10,8 +10,8 @@ The compiled plugin also includes log and Rust core/alloc/compiler-builtins
 support. Applicable license texts follow in the combined notices.
 
 The plugin writes the code patches of clarkekoko's "Lock-on Target MHGU Recomp"
-cheat, published on the MHGU Modding wiki's Cheat Codes page
-(https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes). The cheat states no licence.
+and "No Target Reticle" cheats, published on the MHGU Modding wiki's Cheat Codes page
+(https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes). The cheats state no licence.
 
 The mod patches native hunter code in the user's running game. Original game
 code is by Capcom. This package contains no game files.

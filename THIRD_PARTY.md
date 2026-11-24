@@ -32,12 +32,12 @@ nightly Rust (`rust-toolchain.toml`, `dependencies.lock.json`).
 
 ## Ported behaviour
 
-The mod writes the code patches of clarkekoko's "Lock-on Target MHGU Recomp" Atmosphere cheat for
-build FB08F1D20FD1204F: three code-type 0 writes to main, 24 words at `0x27E9D8`, `0x27E9F8` and
-`0x27EA78` to `0x27EACC`. Source: the "clarkekoko's Cheats" section of the MHGU Modding wiki's
+The mod writes the code patches of clarkekoko's "Lock-on Target MHGU Recomp" and "No Target
+Reticle" Atmosphere cheats for build FB08F1D20FD1204F: code-type 0 writes to main, 26 words at
+`0x27E9D8`, `0x27E9F8`, `0x27EA78` to `0x27EACC`, `0x61E9E0` and `0x61EA28`. Source: the "clarkekoko's Cheats" section of the MHGU Modding wiki's
 Cheat Codes page (https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes, mirrored at
 `references/MHGU-Modding.wiki`, commit 1927ba25646998d012ba6ad501a3104d64064357). No licence is
-stated. The plugin ships those 24 words as data in `core/src/lib.rs`; the cheat file itself is
+stated. The plugin ships those 26 words as data in `core/src/lib.rs`; the cheat file itself is
 not shipped.
 
 ## Research inputs

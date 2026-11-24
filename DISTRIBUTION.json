@@ -3,16 +3,16 @@
   "mod": "lock-on-target",
   "status": "DEVELOPMENT",
   "runtime_platform": "switch",
-  "reason": "r3 replaces r2's tap-window hook with the three code patches of clarkekoko's \"Lock-on Target MHGU Recomp\" cheat, applied through Forge after exact-byte checks. A tap of the target-camera button turns the lock off or on; while on, only the single-tap target request (bit 0) is raised every frame, never bit 24, which r2 also raised.",
+  "reason": "r4 replaces r2's tap-window hook with the code patches of clarkekoko's \"Lock-on Target MHGU Recomp\" cheat and its \"No Target Reticle\" part, applied through Forge after exact-byte checks. A tap of the target-camera button turns the lock off or on; while on, only the single-tap target request (bit 0) is raised every frame, never bit 24, which r2 also raised. The reticle draw 0x61ecc0 is never called, since with the lock held it would run every frame.",
   "publication": {
     "published": false,
     "url": null,
     "date": null
   },
-  "version": "r3",
+  "version": "r4",
   "package_name": "lock-on-target",
-  "archive": "lock-on-target-r3-candidate.zip",
-  "runtime_test": "r3 has not run. The user ran the cheat itself and found it better than r2: \"didnt ruin aiming\". r2 was accepted on Eden and MHGURecomp 0.14.3 (EVIDENCE.json).",
+  "archive": "lock-on-target-r4-candidate.zip",
+  "runtime_test": "r4 has not run (r3, without the reticle patches, was packaged and never run). The user ran the cheat itself and found it better than r2: \"didnt ruin aiming\"; without the reticle part \"the reticle will have problem\". r2 was accepted on Eden and MHGURecomp 0.14.3 (EVIDENCE.json).",
   "runtime_active": true,
   "notices": [
     "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
@@ -63,16 +63,16 @@
         "scope": "MIT-licensed ARM32 syscall wrappers."
       },
       {
-        "name": "Lock-on Target MHGU Recomp cheat",
+        "name": "Lock-on Target MHGU Recomp and No Target Reticle cheats",
         "author": "clarkekoko",
         "url": "https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes",
-        "scope": "The cheat this mod ports: its code patches are written as published."
+        "scope": "The cheats this mod ports: their code patches are written as published."
       },
       {
         "name": "MHGU Modding wiki: Cheat Codes",
         "author": "RTHKKona",
         "url": "https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes",
-        "scope": "Publishes clarkekoko's Lock-on Target MHGU Recomp cheat."
+        "scope": "Publishes clarkekoko's Lock-on Target MHGU Recomp and No Target Reticle cheats."
       },
       {
         "name": "Monster Hunter Generations Ultimate",
@@ -84,8 +84,8 @@
   },
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
-    "r3 not run; r2 accepted on Eden and MHGURecomp. Ryujinx and Switch hardware not run",
-    "Running both this mod and a lock-on cheat is redundant",
+    "r4 not run; r2 accepted on Eden and MHGURecomp. Ryujinx and Switch hardware not run",
+    "Running both this mod and a lock-on or reticle cheat is redundant",
     "Like the cheat, the patches run for every hunter the tap logic updates, other players' included; multiplayer not run"
   ],
   "readme": "mods/lock-on-target/README.md",
@@ -100,8 +100,8 @@
     "manual": [
       "mods/lock-on-target/EVIDENCE.json"
     ],
-    "static_summary": "r3: pinned toolchain build, 8 core host tests and verify (4 game windows, 3 patch originals, imports, GE audit) passed.",
-    "manual_summary": "r3 not run; r2 accepted on Eden and MHGURecomp 0.14.3, see EVIDENCE.json."
+    "static_summary": "r4: pinned toolchain build, 9 core host tests and verify (4 game windows, 5 patch originals, imports, GE audit) passed.",
+    "manual_summary": "r4 not run; r2 accepted on Eden and MHGURecomp 0.14.3, see EVIDENCE.json."
   },
   "dependencies": [
     {
@@ -112,14 +112,14 @@
   ],
   "payloads": {
     "manifest.json": {
-      "source": "build/lock-on-target/candidates/r3/package/manifest.json",
-      "sha256": "9c2af43759f3e24b61c748d1203956183596bed73e40f631d965dbbd558fc5db"
+      "source": "build/lock-on-target/candidates/r4/package/manifest.json",
+      "sha256": "b7af2a53cbe44e62e868b902cc096e504bb4539bf109734a986f34c5f1ab6bd5"
     },
     "romfs/nativeNX/plugins/lock_on_target.nro": {
-      "source": "build/lock-on-target/candidates/r3/package/romfs/nativeNX/plugins/lock_on_target.nro",
-      "sha256": "b2b5826d2ff9c0b16401124d0994df4b7f8d3685c2698d24d1901cca8cc16c2f"
+      "source": "build/lock-on-target/candidates/r4/package/romfs/nativeNX/plugins/lock_on_target.nro",
+      "sha256": "3deb4bf069eb407ffd415885a9e9524b9801366456cdf7d6e7bc627479fb26ca"
     }
   },
-  "candidate": "build/lock-on-target/candidates/r3/delivery",
+  "candidate": "build/lock-on-target/candidates/r4/delivery",
   "candidate_builder": "scripts/build.py"
 }

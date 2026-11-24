@@ -4,15 +4,18 @@ Worked example from `mods/lock-on-target/`. Game facts it rests on are in `mhgu-
 
 ## Patches
 
-The mod writes clarkekoko's "Lock-on Target MHGU Recomp" cheat as published, through Forge
-patches, inside the tap logic `0x27e970(hunter)`. `core/src/lib.rs` holds each patch's original
-and written words; a host test compares the written words with the cheat text.
+The mod writes clarkekoko's "Lock-on Target MHGU Recomp" cheat and its "No Target Reticle" part as
+published, through Forge patches: three in the tap logic `0x27e970(hunter)`, two in the reticle
+update `0x61e95c(panel)`. `core/src/lib.rs` holds each patch's original and written words; a host
+test compares the written words with the cheat text.
 
 | Offset | Original | Written |
 | --- | --- | --- |
 | `0x27e9d8` | `ble 0x27eb10` (hold 1 to 18: reopen the window) | `ble 0x27ea78` (the lock block) |
 | `0x27e9f8` | `b 0x27eb4c` (after a long hold: window reopen) | `b 0x27eb80` (the shared tail) |
 | `0x27ea78` to `0x27ead0` | the window countdown, 22 words | the lock block, 21 words and a literal |
+| `0x61e9e0` | `cmp r0, #1` (state 2: draw the reticle) | `cmp r0, #2` |
+| `0x61ea28` | `cmp r0, #1` (state 1: draw the reticle) | `cmp r0, #2` |
 
 The lock block uses the tap window f32 at hunter `+0x145c` as an integer flag:
 
@@ -25,6 +28,14 @@ The lock block uses the tap window f32 at hunter `+0x145c` as an integer flag:
 The flag is 0 (lock on) after the paths that clear the window: a long hold (`0x27e9f4`) and every
 frame `0x18e50(sFestaCamera)` != 1 (`0x27ea04`). The countdown words after `0x27ead0` are no
 longer reached. Only `0x27ea78` is a branch target inside the block.
+
+## Reticle
+
+`0x61e95c` keeps a state at panel `+0x78` (0, 1, 2). In states 1 and 2 it calls the reticle draw
+`0x61ecc0` when `0x18e50(sFestaCamera)` == 1 and `0x190d4(sFestaCamera)` == 1. `0x190d4` returns
+1 when the current camera's byte `+0xa7c` is set, else 0, so comparing with 2 never matches.
+Those are the only two callers of `0x61ecc0`. With the lock raised every frame, the user reported
+the reticle misbehaves without these patches; what the draw does each frame is not read.
 
 ## Why r2's hook was replaced
 

@@ -3,7 +3,7 @@ use lock_on_target_core::install::*;
 use lock_on_target_core::signatures::SIGNATURES;
 use lock_on_target_core::*;
 
-/// The cheat as published, code-type 0 writes to main.
+/// The cheat as published (lock-on and No Target Reticle), code-type 0 writes to main.
 const CHEAT: &str = "
 ";
 
@@ -53,11 +53,21 @@ fn every_patched_branch_lands_where_the_block_expects() {
 }
 
 #[test]
-fn the_patches_stay_inside_the_tap_logic_and_off_its_entry() {
+fn the_patches_stay_inside_their_functions_and_off_the_entries() {
+    // Tap logic is 568 bytes; the reticle update 372.
     for p in &PATCHES {
-        assert!(p.offset >= TAP_LOGIC_OFFSET + 8 && p.offset + p.bytes() <= TAP_LOGIC_OFFSET + 568, "{:#x}", p.offset);
+        let inside = |start: u32, size: u32| p.offset >= start + 8 && p.offset + p.bytes() <= start + size;
+        assert!(inside(TAP_LOGIC_OFFSET, 568) || inside(RETICLE_OFFSET, 372), "{:#x}", p.offset);
     }
     assert_eq!(SIGNATURES[0].0, TAP_LOGIC_OFFSET);
+}
+
+#[test]
+fn the_reticle_patches_only_change_the_compared_value() {
+    for p in &PATCHES[3..] {
+        // cmp r0, #imm: same register and opcode, 1 becomes 2.
+        assert_eq!((p.original[0], p.patched[0]), (0xe350_0001, 0x0000_0000));
+    }
 }
 
 #[test]
@@ -132,7 +142,7 @@ impl Platform for Fake {
 fn a_clean_install_writes_every_patch() {
     let mut f = Fake::new();
     assert_eq!(install(&mut f, BASE, &PATCHES), Ok(()));
-    assert_eq!(f.writes, 3);
+    assert_eq!(f.writes, PATCHES.len() as u32);
     assert!(f.holds(|p| p.patched));
 }
 
@@ -165,8 +175,8 @@ fn foreign_bytes_anywhere_refuse_before_any_write() {
 #[test]
 fn a_failed_rollback_is_never_reported_as_vanilla() {
     let mut x = Fake::new();
-    x.fail_apply = Some(2);
+    x.fail_apply = Some(PATCHES.len() - 1);
     x.restore_failure = true;
     assert_eq!(install(&mut x, BASE, &PATCHES), Err(InstallError::RestoreFailure));
-    assert_eq!(x.order, [2, 1, 0]);
+    assert_eq!(x.order, (0..PATCHES.len()).rev().collect::<Vec<_>>());
 }

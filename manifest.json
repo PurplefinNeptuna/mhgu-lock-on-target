@@ -1,10 +1,10 @@
 {
   "manifest_version": 1,
   "id": "PurplefinNeptuna/lock-on-target",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "name": "Lock-on Target",
   "authors": ["PurplefinNeptuna"],
-  "description": "Keeps the target camera turned to the monster the game targets. Tap the target camera button to turn the lock off or back on.",
+  "description": "Keeps the target camera turned to the monster the game targets. Tap the target camera button to turn the lock off or back on. The target reticle stays hidden.",
   "gamebananalink": "",
   "requires": {},
   "conflicts": {},

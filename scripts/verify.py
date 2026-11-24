@@ -44,7 +44,7 @@ def verify():
         if image[offset:offset+4*len(words)]!=b''.join(w.to_bytes(4,'little') for w in words):
             raise ValueError('Patch original mismatch: '+hex(offset))
         patches.append(offset)
-    if patches!=[0x27e9d8,0x27e9f8,0x27ea78]: raise ValueError('Patch table changed: '+str(patches))
+    if patches!=[0x27e9d8,0x27e9f8,0x27ea78,0x61e9e0,0x61ea28]: raise ValueError('Patch table changed: '+str(patches))
     disasm=subprocess.check_output([Path(CONFIG['devkitarm'])/'bin/arm-none-eabi-objdump','-d',elf],text=True)
     writes=[line for line in disasm.splitlines() if GE_AFFECTING.search(line)]
     if writes: raise ValueError('GE-affecting instruction emitted: '+str(writes[:5]))
@@ -56,5 +56,5 @@ def verify():
         'exports':sorted(exports),'strong_imports':sorted(imports),'signature_windows':[hex(w) for w in windows],
         'patch_addresses':[hex(o) for o in patches],'text_relocations':False,
         'ge_affecting_instructions':0,'runtime_test':'NOT RUN'})
-    print('PASS: native imports, 4 game windows, 3 patch originals, GE audit, exports and payload inventory')
+    print('PASS: native imports, 4 game windows, 5 patch originals, GE audit, exports and payload inventory')
 if __name__=='__main__': verify()
