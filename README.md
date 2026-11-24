@@ -39,3 +39,9 @@ settings of its own.
 Close the emulator before updating or removing the mod. To update, replace the
 `lock-on-target` folder with the one from the new ZIP. To remove it, disable
 the package or delete its folder from the emulator's mod directory.
+
+## License
+
+Copyright (c) 2026 PurplefinNeptuna. Lock-on Target is free software under the GNU
+General Public License, version 3 or (at your option) any later version. The source code
+and the license text are at https://github.com/PurplefinNeptuna/mhgu-lock-on-target.
