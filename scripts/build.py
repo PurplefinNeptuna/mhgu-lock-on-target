@@ -54,6 +54,8 @@ def build():
     if digest(MOD/'Cargo.lock')!=lock: raise ValueError('Cargo.lock changed during build')
     dest=BUILD_ROOT/('package/romfs/nativeNX/plugins/'+NRO)
     dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(CARGO_TARGET/NRO,dest)
+    # Mod managers read manifest.json beside romfs/ (docs/DEVELOPMENT.md, Releases).
+    shutil.copy2(MOD/'manifest.json',BUILD_ROOT/'package/manifest.json')
     record('build.json',{'version':VERSION,'status':'BUILT','nro_sha256':digest(dest),
         'forge_rs_revision':'d1865b68e9b194eb3eacc8bd71bbf601a5fac63e','runtime_active':True,
         'source_sha256':source_hashes(),'runtime_test':'NOT RUN'})

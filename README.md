@@ -1,8 +1,9 @@
 # Lock-on Target
 
-Keeps the target camera locked on the monster the game targets, instead of
-turning back to normal after one press. It does what the Lock-on Target V1
-cheat does, as a Forge plugin.
+Keeps the target camera turned to the monster the game targets, so you don't
+have to keep pressing the button. Tap your target camera button to turn the
+lock off, and tap it again to turn it back on. It does what clarkekoko's
+"Lock-on Target MHGU Recomp" cheat does, as a Forge plugin.
 
 ## Requirements
 
@@ -12,24 +13,23 @@ cheat does, as a Forge plugin.
 ## Installation
 
 1. Close the emulator.
-2. Extract `lock-on-target-r2.zip`.
+2. Extract `lock-on-target-r3.zip`.
 3. Copy the whole `lock-on-target` folder into your emulator's MHGU mod directory:
    - Eden: `~/.local/share/eden/load/0100770008DD8000/`
    - Ryujinx: `mods/contents/0100770008dd8000/` inside its data directory.
    - MHGURecomp: `mods/` next to the game's executable.
 4. Enable `lock-on-target` and launch MHGU.
-5. Turn off the Lock-on Target V1 cheat if you use it. The mod replaces it.
+5. Turn off any lock-on cheat you use. The mod replaces it.
 
 ## Usage
 
 | Action | Input |
 | --- | --- |
-| Lock the camera on a monster | Your target camera button |
-| Switch to another monster | Your target camera button again |
+| Turn the lock off, or back on | Tap your target camera button |
 
-The mod uses the game's own target camera. Which monster it picks, how it
-switches between them and which button does it all come from your in-game
-camera and button settings. There are no settings of its own.
+The mod uses the game's own target camera, so the monster it turns to and the
+button you tap come from your in-game camera and button settings. There are no
+settings of its own.
 
 ## Update and removal
 

@@ -1,18 +1,18 @@
 {
   "schema_version": 1,
   "mod": "lock-on-target",
-  "status": "READY_TO_DISTRIBUTE",
+  "status": "DEVELOPMENT",
   "runtime_platform": "switch",
-  "reason": "r2 approved for distribution: lets the local hunter's target-camera tap window run out every frame, so the game raises its target request every frame and the camera stays on the targeted monster.",
+  "reason": "r3 replaces r2's tap-window hook with the three code patches of clarkekoko's \"Lock-on Target MHGU Recomp\" cheat, applied through Forge after exact-byte checks. A tap of the target-camera button turns the lock off or on; while on, only the single-tap target request (bit 0) is raised every frame, never bit 24, which r2 also raised.",
   "publication": {
     "published": false,
     "url": null,
     "date": null
   },
-  "version": "r2",
+  "version": "r3",
   "package_name": "lock-on-target",
-  "archive": "lock-on-target-r2.zip",
-  "runtime_test": "r2 accepted on Eden and MHGURecomp 0.14.3: \"ok, work for both eden and recomp\" and \"its not spazzing at all\". MHGURecomp logged \"r2 loaded\" and \"expiring the local hunter's target window\"; installed NRO matches on both.",
+  "archive": "lock-on-target-r3-candidate.zip",
+  "runtime_test": "r3 has not run. The user ran the cheat itself and found it better than r2: \"didnt ruin aiming\". r2 was accepted on Eden and MHGURecomp 0.14.3 (EVIDENCE.json).",
   "runtime_active": true,
   "notices": [
     "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
@@ -63,16 +63,16 @@
         "scope": "MIT-licensed ARM32 syscall wrappers."
       },
       {
-        "name": "Lock-on Target V1 cheat",
-        "author": "an unnamed author",
-        "url": "https://www.youtube.com/live/cJER9XHHHoU",
-        "scope": "The cheat this mod ports. The MHGU Modding wiki lists it as found in this stream and names no author."
+        "name": "Lock-on Target MHGU Recomp cheat",
+        "author": "clarkekoko",
+        "url": "https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes",
+        "scope": "The cheat this mod ports: its code patches are written as published."
       },
       {
         "name": "MHGU Modding wiki: Cheat Codes",
         "author": "RTHKKona",
         "url": "https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes",
-        "scope": "Lists the Lock-on Target V1 cheat and where it was found."
+        "scope": "Publishes clarkekoko's Lock-on Target MHGU Recomp cheat."
       },
       {
         "name": "Monster Hunter Generations Ultimate",
@@ -84,9 +84,9 @@
   },
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
-    "r2 accepted on Eden and MHGURecomp, unitemized for target cycling; Ryujinx and Switch hardware not run",
-    "Running both this mod and the Lock-on Target V1 cheat is redundant",
-    "The Lock-on Target V1 cheat's author is not named in its source, the MHGU Modding wiki"
+    "r3 not run; r2 accepted on Eden and MHGURecomp. Ryujinx and Switch hardware not run",
+    "Running both this mod and a lock-on cheat is redundant",
+    "Like the cheat, the patches run for every hunter the tap logic updates, other players' included; multiplayer not run"
   ],
   "readme": "mods/lock-on-target/README.md",
   "support": {
@@ -100,8 +100,8 @@
     "manual": [
       "mods/lock-on-target/EVIDENCE.json"
     ],
-    "static_summary": "r2: pinned toolchain build, 14 core host tests and verify (4 game windows, imports, GE audit) passed.",
-    "manual_summary": "r2 accepted on Eden and MHGURecomp 0.14.3, with no crosshair twitch; see EVIDENCE.json."
+    "static_summary": "r3: pinned toolchain build, 8 core host tests and verify (4 game windows, 3 patch originals, imports, GE audit) passed.",
+    "manual_summary": "r3 not run; r2 accepted on Eden and MHGURecomp 0.14.3, see EVIDENCE.json."
   },
   "dependencies": [
     {
@@ -111,13 +111,15 @@
     }
   ],
   "payloads": {
+    "manifest.json": {
+      "source": "build/lock-on-target/candidates/r3/package/manifest.json",
+      "sha256": "9c2af43759f3e24b61c748d1203956183596bed73e40f631d965dbbd558fc5db"
+    },
     "romfs/nativeNX/plugins/lock_on_target.nro": {
-      "source": "build/lock-on-target/candidates/r2/package/romfs/nativeNX/plugins/lock_on_target.nro",
-      "sha256": "ae34b8adbe58804b501d7e8ef420354a264e81d01e5ca8ae40b0c461950bd775"
+      "source": "build/lock-on-target/candidates/r3/package/romfs/nativeNX/plugins/lock_on_target.nro",
+      "sha256": "b2b5826d2ff9c0b16401124d0994df4b7f8d3685c2698d24d1901cca8cc16c2f"
     }
   },
-  "approval": {
-    "date": "2026-11-06",
-    "basis": "The user approved r2 on 2026-11-06: \"its not spazzing at all so promote it\", after \"ok, work for both eden and recomp\". The promoted bytes are the r2 candidate the user ran (lock_on_target.nro ae34b8adbe58804b501d7e8ef420354a264e81d01e5ca8ae40b0c461950bd775) on Eden and MHGURecomp 0.14.3. Target cycling was not itemized; Ryujinx and Switch hardware are unconfirmed."
-  }
+  "candidate": "build/lock-on-target/candidates/r3/delivery",
+  "candidate_builder": "scripts/build.py"
 }

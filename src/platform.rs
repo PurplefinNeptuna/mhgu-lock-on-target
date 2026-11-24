@@ -51,9 +51,6 @@ fn mapped(address: u32, bytes: u32, permissions: u32) -> bool {
 pub fn readable(address: u32, bytes: u32) -> bool {
     mapped(address, bytes, 1)
 }
-pub fn executable(address: u32, bytes: u32) -> bool {
-    mapped(address, bytes, 5)
-}
 pub fn sync_code(address: u32, bytes: u32) -> bool {
     // SAFETY: the caller passes a validated code span; the barriers change no memory.
     unsafe {
@@ -63,14 +60,10 @@ pub fn sync_code(address: u32, bytes: u32) -> bool {
     }
 }
 pub fn word(address: u32) -> u32 {
-    // SAFETY: every caller checks the mapping first, or holds a native object it was handed.
+    // SAFETY: every caller checks the mapping first.
     unsafe { core::ptr::read_volatile(address as *const u32) }
 }
 pub fn byte(address: u32) -> u8 {
     // SAFETY: as for `word`.
     unsafe { core::ptr::read_volatile(address as *const u8) }
-}
-pub fn write_word(address: u32, value: u32) {
-    // SAFETY: the caller writes a field of the live hunter the game handed to the hook.
-    unsafe { core::ptr::write_volatile(address as *mut u32, value) }
 }

@@ -9,9 +9,11 @@ https://github.com/switchbrew/libnx.
 The compiled plugin also includes log and Rust core/alloc/compiler-builtins
 support. Applicable license texts follow in the combined notices.
 
-The behaviour follows the "Lock-on Target V1" cheat; no cheat code is shipped.
+The plugin writes the code patches of clarkekoko's "Lock-on Target MHGU Recomp"
+cheat, published on the MHGU Modding wiki's Cheat Codes page
+(https://github.com/RTHKKona/MHGU-Modding/wiki/Cheat-Codes). The cheat states no licence.
 
-The mod hooks native hunter code in the user's running game. Original game
+The mod patches native hunter code in the user's running game. Original game
 code is by Capcom. This package contains no game files.
 
 Unicode whitespace data by Unicode, Inc. is included through Rust core, under
