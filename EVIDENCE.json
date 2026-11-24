@@ -78,5 +78,17 @@
     "host_tests": 17,
     "verify": "6 game windows, imports, exports, GE audit, payload inventory",
     "runtime_test": "NOT RUN"
+  },
+  "runtime_r6_recomp_2026_11_24": {
+    "emulators": [
+      "MHGURecomp (updater 0.19.2)"
+    ],
+    "installed_nro_sha256": "d6065c8bd6d3faff92ffda5129010a6e64b9d01dfd1f1d874f6a743bceca5e2a",
+    "installed_matches": true,
+    "log": "recomplog.txt: \"[forge] [INFO] [lock-on-target] r6 loaded\" and \"[forge] [INFO] [lock-on-target] holding the target lock\".",
+    "mods": "Modern Weapon Controls r15 active.",
+    "tester": "\"now it works correctly, please promote\"",
+    "itemized": false,
+    "not_reported": "Target cycling, multiplayer."
   }
 }
