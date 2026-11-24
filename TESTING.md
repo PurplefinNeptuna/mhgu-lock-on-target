@@ -1,6 +1,6 @@
-# Testing Lock-on Target r4
+# Testing Lock-on Target r5
 
-Turn off every lock-on and reticle cheat first (clarkekoko's included), so only the mod writes the patches.
+Turn off every lock-on and reticle cheat first (clarkekoko's included), so only the mod changes the lock.
 
 1. Start MHGU with the mod and Forge installed, then go on any quest with a large monster.
 2. Without pressing anything, check whether the camera turns to the targeted monster and stays on it.
@@ -13,6 +13,8 @@ Send the emulator's log. Eden's Forge config (`level = error`) hides the info li
 
 | Line | Meaning |
 | --- | --- |
-| `[lock-on-target] r4 loaded` | All five patches are written |
-| `[lock-on-target] Inactive: ...` | Nothing is written; the rest of the line says why |
-| `[lock-on-target] ERROR: patch rollback failed; restart required` | Restart the game |
+| `[lock-on-target] r5 loaded` | Both hooks are installed |
+| `[lock-on-target] holding the target lock` | The lock reached the local hunter at least once (logged once per start) |
+| `[lock-on-target] Inactive: ...` | Not installed; the rest of the line says why |
+| `code patch at ... cannot apply to recompiled code` (MHGURecomp) | Must not appear for this mod |
+| `[lock-on-target] ERROR: hook rollback failed; restart required` | Restart the game |

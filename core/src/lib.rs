@@ -1,66 +1,86 @@
-//! Native layout for Lock-on Target, a Forge port of clarkekoko's "Lock-on Target MHGU Recomp"
-//! cheat. Native writes stay in the plugin. Offsets are main-relative, MHGU 1.4.0 (build
-//! FB08F1D20FD1204F).
+//! Native layout and portable decisions for Lock-on Target, a Forge port of clarkekoko's
+//! "Lock-on Target MHGU Recomp" and "No Target Reticle" cheats as two hooks. Native calls and
+//! memory access stay in the plugin. Offsets are main-relative, MHGU 1.4.0 (build FB08F1D20FD1204F).
 #![no_std]
 pub mod install;
 pub mod signatures;
 
-/// One code patch: where it goes, the words it must find there, and the words it writes.
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub struct CodePatch {
-    pub offset: u32,
-    pub original: &'static [u32],
-    pub patched: &'static [u32],
-}
+/// Two hooks, the first two entries of `signatures::SIGNATURES`. Both replace their function, so
+/// neither may stack on another plugin's hook.
+pub const HOOK_COUNT: usize = 2;
+pub const TAP_LOGIC: usize = 0;
+pub const RETICLE_CHECK: usize = 1;
+pub const CHAINS: [bool; HOOK_COUNT] = [false, false];
+/// The tap logic runs the original for other hunters; the reticle check never does.
+pub const CALLS_ORIGINAL: [bool; HOOK_COUNT] = [true, false];
 
-impl CodePatch {
-    pub const fn bytes(&self) -> u32 {
-        self.original.len() as u32 * 4
-    }
-}
-
-/// The longest patch, in words; sizes the plugin's byte buffer.
-pub const MAX_WORDS: usize = 22;
-
-/// The hunter's target-camera tap logic `(hunter)`, main+0x27e970, 568 bytes. The patches turn the
-/// tap window f32 at hunter+0x145c into a lock flag (integer 0 or 1). A tap of the target-camera
-/// button flips it. While it is 0, only the single-tap target request (bit 0 of hunter+0x1434) is
-/// raised, every frame. Bit 24 and the 12-frame tap window are never used.
+/// `(hunter)`, main+0x27e970, 568 bytes; its only caller is main+0x2a7b74, which passes the hunter
+/// in r0 and reads no result. For the local hunter the detour runs the cheat's version of it.
 pub const TAP_LOGIC_OFFSET: u32 = 0x27e970;
+/// `(camera) -> 0 or 1`, main+0x190d4: the current camera's byte +0xa7c. Its only callers are the
+/// reticle update's compares at main+0x61e9e0 and main+0x61ea28, which draw the reticle on 1. The
+/// cheat compares with 2 instead; the detour returns 0, which neither compare takes.
+pub const RETICLE_CHECK_OFFSET: u32 = 0x190d4;
 
-/// The target reticle's panel update `0x61e95c(panel)`, state at panel+0x78. In states 1 and 2 it
-/// calls the reticle draw `0x61ecc0` (its only two callers) when `0x190d4([0x184d750])` == 1,
-/// the current camera's byte +0xa7c being set. With the lock on every frame that draw would run
-/// every frame, so the cheat compares with 2, which `0x190d4` never returns.
-pub const RETICLE_OFFSET: u32 = 0x61e95c;
+/// GOT slot holding the address of sFestaCamera's cell (main+0x184d750), as the tap logic loads it.
+pub const CAMERA_GOT: u32 = 0x1838d90;
+/// GOT slot holding the address of the cell whose object the tail passes to `TAIL_CHECK`.
+pub const TAIL_GOT: u32 = 0x1838da8;
 
-pub const PATCHES: [CodePatch; 5] = [
-    // A hold of 1 to 18 frames runs the lock block instead of the window reopen at 0x27eb10.
-    CodePatch { offset: 0x27e9d8, original: &[0xda00_004c], patched: &[] },
-    // After a long hold (request bit 6, flag cleared to 0), skip the window reopen at 0x27eb4c
-    // and go straight to the shared tail at 0x27eb80.
-    CodePatch { offset: 0x27e9f8, original: &[0xea00_0053], patched: &[] },
-    // The lock block, over the window countdown at 0x27ea78. Every branch leaves to 0x27eb80;
-    // the old countdown words after 0x27ead0 are no longer reached.
-    CodePatch {
-        offset: 0x27ea78,
-        original: &[
-            0xe301_045c, 0xe084_5000, 0xed95_0a00, 0xeeb5_0ac0, 0xeef1_fa10, 0xda00_002e, 0xe59f_0114,
-            0xeeb7_0a00, 0xe1a0_1005, 0xe79f_0000, 0xe590_0000, 0xe5d0_606f, 0xe1a0_0004, 0xeb0a_eff4,
-            0xeb0f_838d, 0xe301_13f8, 0xe194_10b1, 0xe001_0000, 0xe30f_1fff, 0xe110_0001, 0x0a00_0013,
-            0xe1a0_0004,
-        ],
-        patched: &[
-            // r5 = &hunter[+0x145c]; r0 = 0x65f8ec(), the target-camera button mask
-            // flag ^= 1 when hunter[+0x13f8] (pressed this frame) has the button
-            // flag 1: lock off
-            // 0x18ffc([0x184d750] sFestaCamera): non-zero when the camera has a hunter to follow
-            // 0x285ea0(hunter, 0): raise the single-tap target request
-            // literal: the GOT slot 0x1838d90 that holds &sFestaCamera, relative to 0x27eab0
-        ],
-    },
-    // Reticle, state 2: `cmp r0, #1` -> `cmp r0, #2`, so it takes the other path at 0x61ea40.
-    CodePatch { offset: 0x61e9e0, original: &[0xe350_0001], patched: &[] },
-    // Reticle, state 1: the same compare, so `popne` returns before the draw.
-    CodePatch { offset: 0x61ea28, original: &[0xe350_0001], patched: &[] },
-];
+/// `() -> mask`: the target-camera button, 0x200 or 0x400 by the button setting.
+pub const BUTTON_MASK: u32 = 0x65f8ec;
+/// `(camera) -> u32`: the tap logic's gate; anything but 1 runs the game's other path.
+pub const CAMERA_GATE: u32 = 0x18e50;
+/// `(camera) -> pointer`: non-zero when the current camera has a hunter to follow.
+pub const CAMERA_FOLLOW: u32 = 0x18ffc;
+/// `(hunter, bit)`: set / clear a bit of the request bitset at hunter+0x1434.
+pub const SET_REQUEST: u32 = 0x285ea0;
+pub const CLEAR_REQUEST: u32 = 0x285ec4;
+/// `(object) -> u32`: 1 makes the tail clear request bit 6.
+pub const TAIL_CHECK: u32 = 0x5584a0;
+
+/// Hunter fields: logical held / pressed-this-frame buttons (u16), hold time and tap window (f32,
+/// 1/60 s).
+pub const HELD: u32 = 0x13f4;
+pub const PRESSED: u32 = 0x13f8;
+pub const HOLD_TIME: u32 = 0x1450;
+pub const TAP_TIMER: u32 = 0x145c;
+/// Request bits: 0 is the single-tap target request, 6 the long hold.
+pub const TARGET_REQUEST: u32 = 0;
+pub const HOLD_REQUEST: u32 = 6;
+
+/// `sFestaUnit + 0x58`: the local player's hunter.
+pub const LOCAL_HUNTER: u32 = 0x58;
+
+/// Run the cheat's version only for the local hunter; every other hunter runs the original.
+pub const fn holds(hunter: u32, local_hunter: u32) -> bool {
+    hunter != 0 && hunter == local_hunter
+}
+
+/// `hold > 18.0` as the game's `vcmpe` + `ble` decides it, on the f32's bits: NaN and negative
+/// values are not longer. Bits, so the plugin needs no float register.
+pub const fn longer_than_18(bits: u32) -> bool {
+    (bits as i32) > 0x4190_0000 && bits <= 0x7f80_0000
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Step {
+    /// Held past 18 frames: raise bit 6 and close the window; the lock turns back on.
+    LongHold,
+    /// Lock on: raise the target request if the camera has a hunter to follow.
+    Raise,
+    /// Lock off: raise nothing.
+    Off,
+}
+
+/// One frame of the cheat's tap logic once the camera gate is 1. A tap flips `lock_off`.
+pub fn step(held: u16, pressed: u16, mask: u32, hold_bits: u32, lock_off: &mut bool) -> Step {
+    if held as u32 & mask & 0xffff != 0 && longer_than_18(hold_bits) {
+        *lock_off = false;
+        return Step::LongHold;
+    }
+    if pressed as u32 & mask != 0 {
+        *lock_off = !*lock_off;
+    }
+    if *lock_off { Step::Off } else { Step::Raise }
+}

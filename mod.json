@@ -2,6 +2,6 @@
   "schema_version": 1,
   "mod": "lock-on-target",
   "kind": "plugin",
-  "version": "r4",
+  "version": "r5",
   "package_name": "lock-on-target"
 }

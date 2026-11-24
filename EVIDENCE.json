@@ -43,5 +43,22 @@
     "tester": "\"ok, work for both eden and recomp\"; \"its not spazzing at all\"",
     "itemized": false,
     "not_reported": "Target cycling."
+  },
+  "runtime_r4_recomp_2026_11_24": {
+    "emulators": [
+      "MHGURecomp (updater 0.19.2)"
+    ],
+    "installed_nro_sha256": "3deb4bf069eb407ffd415885a9e9524b9801366456cdf7d6e7bc627479fb26ca",
+    "installed_matches": true,
+    "log": "recomplog.txt: \"[forge] [WARN] lock_on_target.nro: code patch at main+0x27E9D8 (4 bytes) cannot apply to recompiled code: ignored\", the same for main+0x27E9F8 (4 bytes), main+0x27EA78 (88 bytes), main+0x61E9E0 (4 bytes) and main+0x61EA28 (4 bytes), then \"[forge] [INFO] [lock-on-target] r4 loaded\".",
+    "tester": "\"its failed spectacularly. please dont make code patches\"; \"make a real forge mod with hooks while stil based on the cheat\"",
+    "cause": "MHGURecomp's forge_patch_enable applies a code patch only when it forms a hook (runtime/forge.c code_changed); the plugin's read-back saw the written bytes, so it logged loaded with nothing in effect.",
+    "itemized": false
+  },
+  "static_r5": {
+    "build": "pinned toolchain",
+    "host_tests": 16,
+    "verify": "6 game windows, imports, exports, GE audit, payload inventory",
+    "runtime_test": "NOT RUN"
   }
 }
