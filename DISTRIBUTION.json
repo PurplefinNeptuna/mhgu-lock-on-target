@@ -3,16 +3,16 @@
   "mod": "lock-on-target",
   "status": "DEVELOPMENT",
   "runtime_platform": "switch",
-  "reason": "r5 does what clarkekoko's \"Lock-on Target MHGU Recomp\" and \"No Target Reticle\" cheats do with two Forge hooks that replace their function: the tap logic 0x27e970 for the local hunter (a tap toggles the lock; while on, only the single-tap target request, bit 0, is raised every frame, never bit 24) and the reticle check 0x190d4, which returns 0 so the reticle is never drawn. r4's code patches were ignored by MHGURecomp.",
+  "reason": "r6 does what clarkekoko's \"Lock-on Target MHGU Recomp\" and \"No Target Reticle\" cheats do with two Forge hooks that replace their function: the tap logic 0x27e970 for the local hunter (a tap toggles the lock; while on, only the single-tap target request, bit 0, is raised every frame, never bit 24; unlike the cheat it pauses while weapon R is held) and the reticle check 0x190d4, which returns 0 so the reticle is never drawn.",
   "publication": {
     "published": false,
     "url": null,
     "date": null
   },
-  "version": "r5",
+  "version": "r6",
   "package_name": "lock-on-target",
-  "archive": "lock-on-target-r5-candidate.zip",
-  "runtime_test": "r5 has not run. r4 ran on MHGURecomp and did nothing: all five code patches were logged as \"cannot apply to recompiled code: ignored\" (EVIDENCE.json runtime_r4_recomp_2026_11_24). The user ran the cheat itself and found it better than r2: \"didnt ruin aiming\". r2 was accepted on Eden and MHGURecomp 0.14.3.",
+  "archive": "lock-on-target-r6-candidate.zip",
+  "runtime_test": "r6 has not run. r5 ran on MHGURecomp with Modern Weapon Controls: the lock held, but R aiming was pulled onto the monster (EVIDENCE.json runtime_r5_recomp_2026_11_24). r4's code patches were ignored by MHGURecomp. r2 was accepted on Eden and MHGURecomp 0.14.3.",
   "runtime_active": true,
   "notices": [
     "mods/lock-on-target/DISTRIBUTION_NOTICES.md",
@@ -84,7 +84,7 @@
   },
   "target": "MHGU Nintendo Switch 1.4.0; upstream Forge 1.5.1; Eden/Ryujinx/MHGURecomp.",
   "limitations": [
-    "r5 not run; r2 accepted on Eden and MHGURecomp. Ryujinx and Switch hardware not run",
+    "r6 not run; r2 accepted on Eden and MHGURecomp. Ryujinx and Switch hardware not run",
     "Running both this mod and a lock-on or reticle cheat is redundant",
     "Only the local player's hunter gets the lock; multiplayer not run"
   ],
@@ -100,8 +100,8 @@
     "manual": [
       "mods/lock-on-target/EVIDENCE.json"
     ],
-    "static_summary": "r5: pinned toolchain build, 16 core host tests and verify (6 game windows, imports, exports, GE audit) passed.",
-    "manual_summary": "r5 not run; r4 did nothing on MHGURecomp; r2 accepted on Eden and MHGURecomp 0.14.3. See EVIDENCE.json."
+    "static_summary": "r6: pinned toolchain build, 17 core host tests and verify (6 game windows, imports, exports, GE audit) passed.",
+    "manual_summary": "r6 not run; r5 locked but pulled R aiming on MHGURecomp; r2 accepted on Eden and MHGURecomp 0.14.3. See EVIDENCE.json."
   },
   "dependencies": [
     {
@@ -112,14 +112,14 @@
   ],
   "payloads": {
     "manifest.json": {
-      "source": "build/lock-on-target/candidates/r5/package/manifest.json",
-      "sha256": "7b944e4cccb091ac7926daa7c8a6b5c6e8cab5255fccca4e04c7dfa8a5890119"
+      "source": "build/lock-on-target/candidates/r6/package/manifest.json",
+      "sha256": "eca78597284fe0d5ed3f45b06a254d3dca7af25a4e206e20cfcb6027bbfd35da"
     },
     "romfs/nativeNX/plugins/lock_on_target.nro": {
-      "source": "build/lock-on-target/candidates/r5/package/romfs/nativeNX/plugins/lock_on_target.nro",
-      "sha256": "80b3015c6d7c3dced1191fc1bd011a4442fb17d8d4b1aeaaea654ae67296396a"
+      "source": "build/lock-on-target/candidates/r6/package/romfs/nativeNX/plugins/lock_on_target.nro",
+      "sha256": "d6065c8bd6d3faff92ffda5129010a6e64b9d01dfd1f1d874f6a743bceca5e2a"
     }
   },
-  "candidate": "build/lock-on-target/candidates/r5/delivery",
+  "candidate": "build/lock-on-target/candidates/r6/delivery",
   "candidate_builder": "scripts/build.py"
 }

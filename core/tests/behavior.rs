@@ -18,6 +18,7 @@ fn a_hold_is_long_only_past_18_frames() {
 }
 
 const MASK: u32 = 0x200;
+const AIM: u32 = 0x40;
 fn bits(f: f32) -> u32 {
     f.to_bits()
 }
@@ -25,22 +26,36 @@ fn bits(f: f32) -> u32 {
 #[test]
 fn a_tap_flips_the_lock_and_the_lock_starts_on() {
     let mut off = false;
-    assert_eq!(step(0, 0, MASK, 0, &mut off), Step::Raise, "on with no press");
-    assert_eq!(step(0x200, 0x200, MASK, bits(0.0), &mut off), Step::Off, "a tap turns it off");
-    assert_eq!(step(0x200, 0, MASK, bits(5.0), &mut off), Step::Off, "still held, no new press");
-    assert_eq!(step(0, 0, MASK, 0, &mut off), Step::Off);
-    assert_eq!(step(0x200, 0x200, MASK, bits(0.0), &mut off), Step::Raise, "a second tap turns it on");
-    assert_eq!(step(0x400, 0x400, MASK, bits(0.0), &mut off), Step::Raise, "another button is not the target button");
+    assert_eq!(step(0, 0, MASK, AIM, 0, &mut off), Step::Raise, "on with no press");
+    assert_eq!(step(0x200, 0x200, MASK, AIM, bits(0.0), &mut off), Step::Off, "a tap turns it off");
+    assert_eq!(step(0x200, 0, MASK, AIM, bits(5.0), &mut off), Step::Off, "still held, no new press");
+    assert_eq!(step(0, 0, MASK, AIM, 0, &mut off), Step::Off);
+    assert_eq!(step(0x200, 0x200, MASK, AIM, bits(0.0), &mut off), Step::Raise, "a second tap turns it on");
+    assert_eq!(step(0x400, 0x400, MASK, AIM, bits(0.0), &mut off), Step::Raise, "another button is not the target button");
 }
 
 #[test]
 fn a_long_hold_raises_bit_6_and_turns_the_lock_on() {
     let mut off = true;
-    assert_eq!(step(0x200, 0, MASK, bits(18.5), &mut off), Step::LongHold);
+    assert_eq!(step(0x200, 0, MASK, AIM, bits(18.5), &mut off), Step::LongHold);
     assert!(!off);
     // A long hold time with the button no longer held is a normal frame.
     let mut off = true;
-    assert_eq!(step(0, 0, MASK, bits(40.0), &mut off), Step::Off);
+    assert_eq!(step(0, 0, MASK, AIM, bits(40.0), &mut off), Step::Off);
+}
+
+#[test]
+fn holding_weapon_r_pauses_the_lock_until_release() {
+    let mut off = false;
+    assert_eq!(step(0x40, 0x40, MASK, AIM, 0, &mut off), Step::Aiming);
+    assert_eq!(step(0x40, 0, MASK, AIM, 0, &mut off), Step::Aiming, "still aiming");
+    assert!(!off, "aiming does not turn the lock off");
+    assert_eq!(step(0, 0, MASK, AIM, 0, &mut off), Step::Raise, "released: the lock pulls again");
+    // A tap of the target button while aiming still turns the lock off.
+    assert_eq!(step(0x240, 0x200, MASK, AIM, 0, &mut off), Step::Off);
+    // ZR is weapon R when the shoulders are swapped.
+    let mut on = false;
+    assert_eq!(step(0x800, 0, MASK, 0x800, 0, &mut on), Step::Aiming);
 }
 
 #[test]

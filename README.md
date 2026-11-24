@@ -14,7 +14,7 @@ and "No Target Reticle" cheats do, as a Forge plugin.
 ## Installation
 
 1. Close the emulator.
-2. Extract `lock-on-target-r5.zip`.
+2. Extract `lock-on-target-r6.zip`.
 3. Copy the whole `lock-on-target` folder into your emulator's MHGU mod directory:
    - Eden: `~/.local/share/eden/load/0100770008DD8000/`
    - Ryujinx: `mods/contents/0100770008dd8000/` inside its data directory.
@@ -27,8 +27,10 @@ and "No Target Reticle" cheats do, as a Forge plugin.
 | Action | Input |
 | --- | --- |
 | Turn the lock off, or back on | Tap your target camera button |
+| Aim without the lock pulling the camera | Hold R (ZR if you swapped the shoulder buttons) |
 
-The mod uses the game's own target camera, so the monster it turns to and the
+The lock pauses while you hold R and picks up again when you let go. The mod
+uses the game's own target camera, so the monster it turns to and the
 button you tap come from your in-game camera and button settings. There are no
 settings of its own.
 

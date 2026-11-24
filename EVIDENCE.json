@@ -60,5 +60,23 @@
     "host_tests": 16,
     "verify": "6 game windows, imports, exports, GE audit, payload inventory",
     "runtime_test": "NOT RUN"
+  },
+  "runtime_r5_recomp_2026_11_24": {
+    "emulators": [
+      "MHGURecomp (updater 0.19.2)"
+    ],
+    "installed_nro_sha256": "80b3015c6d7c3dced1191fc1bd011a4442fb17d8d4b1aeaaea654ae67296396a",
+    "installed_matches": true,
+    "log": "recomplog.txt: \"[forge] [INFO] [lock-on-target] r5 loaded\" and \"[forge] [INFO] [lock-on-target] holding the target lock\"; no code-patch warning.",
+    "mods": "Modern Weapon Controls r15 active (\"Remap enabled; use Control Type 3 with original shoulder assignments\").",
+    "tester": "\"still locking too hard when aiming with R, unlike when using the cheat, please fix (and dont forget: no code patches that look like from the cheat itself)\"; the cheat comparison ran on Eden; asked to pause the lock while R is held.",
+    "screenshot": "Insect Glaive, kinsect aim reticle at the screen centre on the targeted monster.",
+    "itemized": false
+  },
+  "static_r6": {
+    "build": "pinned toolchain",
+    "host_tests": 17,
+    "verify": "6 game windows, imports, exports, GE audit, payload inventory",
+    "runtime_test": "NOT RUN"
   }
 }

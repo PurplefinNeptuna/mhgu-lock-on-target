@@ -25,8 +25,9 @@ For the local hunter (`[sFestaUnit+0x58]`), the detour runs what the cheat leave
    (its other path, which the cheat does not change) and set the lock on.
 2. `mask = 0x65f8ec()`. If held `+0x13f4` has the button and hold time `+0x1450` > 18.0: raise
    bit 6 (`0x285ea0`), store 0 in the window `+0x145c`, lock on.
-3. Otherwise a tap (pressed `+0x13f8` has the button) flips the lock. While the lock is on and
-   `0x18ffc(camera)` != 0, raise bit 0.
+3. Otherwise a tap (pressed `+0x13f8` has the button) flips the lock. While the lock is on, weapon R
+   is not held (`+0x13f4 & 0x65f93c()`, 0x40 or 0x800) and `0x18ffc(camera)` != 0, raise bit 0.
+   The R pause is not in the cheat: the user asked for it after r5 pulled R aiming onto the monster.
 4. The original's tail: if `0x5584a0([[main+0x1838da8]])` == 1, clear bit 6 (`0x285ec4`).
 
 `core::step` holds steps 2 and 3 and has host tests; `longer_than_18` compares the f32 as bits, as

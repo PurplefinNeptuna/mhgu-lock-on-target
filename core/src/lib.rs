@@ -29,6 +29,9 @@ pub const TAIL_GOT: u32 = 0x1838da8;
 
 /// `() -> mask`: the target-camera button, 0x200 or 0x400 by the button setting.
 pub const BUTTON_MASK: u32 = 0x65f8ec;
+/// `() -> mask`: weapon R, 0x40 or 0x800 by the same setting; weapon code tests it against `HELD`
+/// (main+0x2c1a50, main+0x1169560). Modern Weapon Controls maps physical ZR into it before the tap logic.
+pub const AIM_MASK: u32 = 0x65f93c;
 /// `(camera) -> u32`: the tap logic's gate; anything but 1 runs the game's other path.
 pub const CAMERA_GATE: u32 = 0x18e50;
 /// `(camera) -> pointer`: non-zero when the current camera has a hunter to follow.
@@ -71,10 +74,13 @@ pub enum Step {
     Raise,
     /// Lock off: raise nothing.
     Off,
+    /// Lock on, but weapon R is held (aiming): raise nothing until it is released. The cheat has no
+    /// such pause; the user asked for it after aiming with R was pulled onto the monster.
+    Aiming,
 }
 
 /// One frame of the cheat's tap logic once the camera gate is 1. A tap flips `lock_off`.
-pub fn step(held: u16, pressed: u16, mask: u32, hold_bits: u32, lock_off: &mut bool) -> Step {
+pub fn step(held: u16, pressed: u16, mask: u32, aim_mask: u32, hold_bits: u32, lock_off: &mut bool) -> Step {
     if held as u32 & mask & 0xffff != 0 && longer_than_18(hold_bits) {
         *lock_off = false;
         return Step::LongHold;
@@ -82,5 +88,11 @@ pub fn step(held: u16, pressed: u16, mask: u32, hold_bits: u32, lock_off: &mut b
     if pressed as u32 & mask != 0 {
         *lock_off = !*lock_off;
     }
-    if *lock_off { Step::Off } else { Step::Raise }
+    if *lock_off {
+        Step::Off
+    } else if held as u32 & aim_mask != 0 {
+        Step::Aiming
+    } else {
+        Step::Raise
+    }
 }

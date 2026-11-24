@@ -60,11 +60,11 @@ extern "C" fn tap_logic(hunter: u32) {
         LOCK_OFF.store(false, Ordering::Relaxed);
         return run_original(hunter);
     }
-    let mask = call0(base + BUTTON_MASK);
+    let (mask, aim_mask) = (call0(base + BUTTON_MASK), call0(base + AIM_MASK));
     let held = platform::half(hunter + HELD);
     let pressed = platform::half(hunter + PRESSED);
     let mut lock_off = LOCK_OFF.load(Ordering::Relaxed);
-    match step(held, pressed, mask, platform::word(hunter + HOLD_TIME), &mut lock_off) {
+    match step(held, pressed, mask, aim_mask, platform::word(hunter + HOLD_TIME), &mut lock_off) {
         Step::LongHold => {
             call2(base + SET_REQUEST, hunter, HOLD_REQUEST);
             platform::write_word(hunter + TAP_TIMER, 0);
@@ -75,7 +75,7 @@ extern "C" fn tap_logic(hunter: u32) {
                 RAISED.store(true, Ordering::Relaxed);
             }
         }
-        Step::Off => {}
+        Step::Off | Step::Aiming => {}
     }
     LOCK_OFF.store(lock_off, Ordering::Relaxed);
     // The original's tail at main+0x27eb80.
