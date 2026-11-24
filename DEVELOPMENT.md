@@ -25,7 +25,7 @@ The findings (local hunter, tap logic and its window, button words, hold time, r
 
 ## How it works
 
-Design, hooks and native detail live in the skills: [Small hook mods: Village Quests, Shared Urgent Quests, Lock-on Target](../../.agents/skills/mhgu-forge-modding/references/worked/small-hooks.md).
+Design, hooks and native detail are in `docs/worked/`: [Lock-on Target: hook](docs/worked/hook.md).
 
 ## Open items
 
