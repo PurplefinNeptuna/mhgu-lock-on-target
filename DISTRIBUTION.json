@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "mod": "lock-on-target",
-  "status": "READY_TO_DISTRIBUTE",
+  "status": "PUBLISHED",
   "runtime_platform": "switch",
   "reason": "r6 approved for distribution. r6 does what clarkekoko's \"Lock-on Target MHGU Recomp\" and \"No Target Reticle\" cheats do with two Forge hooks that replace their function: the tap logic 0x27e970 for the local hunter (a tap toggles the lock; while on, only the single-tap target request, bit 0, is raised every frame, never bit 24; unlike the cheat it pauses while weapon R is held) and the reticle check 0x190d4, which returns 0 so the reticle is never drawn.",
   "publication": {
-    "published": false,
-    "url": null,
-    "date": null
+    "published": true,
+    "url": "https://github.com/PurplefinNeptuna/mhgu-lock-on-target/releases/tag/r6",
+    "date": "2026-11-24"
   },
   "version": "r6",
   "package_name": "lock-on-target",

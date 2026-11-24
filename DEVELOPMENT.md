@@ -2,7 +2,7 @@
 
 ## Current state
 
-r6 READY_TO_DISTRIBUTE (2026-11-24), unpublished, release at `build/lock-on-target/releases/r6/`.
+r6 PUBLISHED (2026-11-24) as the GitHub release `r6`, release at `build/lock-on-target/releases/r6/`.
 Two Forge hooks do what clarkekoko's "Lock-on Target MHGU Recomp" and "No Target Reticle" cheats do
 for the local hunter: a tap of the target-camera button flips the lock, while it is on the game
 raises its single-tap target request every frame, and the reticle is never drawn. Unlike the
